@@ -4,20 +4,12 @@ services:
     env: docker
     dockerfilePath: ./backend/Dockerfile
     buildCommand: ""  # Optional if you need specific build commands
-    startCommand: "flask run --host=0.0.0.0 --port=5000"
+    startCommand: "flask run --host=0.0.0.0 --port=5001"
     autoDeploy: true
-    # envVars:
-    #   - key: GOOGLE_CREDENTIALS
-    #     sync: false  # You can set this to true if you have defined GOOGLE_CREDENTIALS in Render's environment
-    # envFilePath: .env
-    routes:
-      - type: http
-        source: /
-        targetPort: 5000
-    mounts:
-      - type: volume
-        name: backend-volume
-        path: /app
+    envVars:
+      - key: GOOGLE_CREDENTIALS
+        sync: false  # Sync to true if defined in Render's environment
+    envFilePath: .env
 
   - type: web
     name: frontend
@@ -26,11 +18,3 @@ services:
     buildCommand: "npm install && npm run build"
     startCommand: "serve -s build -l 80"
     autoDeploy: true
-    routes:
-      - type: http
-        source: /
-        targetPort: 80
-    mounts:
-      - type: volume
-        name: frontend-volume
-        path: /app
