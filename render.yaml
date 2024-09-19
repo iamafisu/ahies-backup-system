@@ -3,8 +3,7 @@ services:
     name: backend
     env: docker
     dockerfilePath: ./backend/Dockerfile
-    buildCommand: ""  # Optional if you need specific build commands
-    startCommand: "flask run --host=0.0.0.0 --port=5001"
+    buildCommand: ""  # Optional, can be removed if not needed
     autoDeploy: true
     envVars:
       - key: GOOGLE_CREDENTIALS
@@ -16,5 +15,4 @@ services:
     env: docker
     dockerfilePath: ./frontend/Dockerfile
     buildCommand: "npm install && npm run build"
-    startCommand: "serve -s build -l 80"
     autoDeploy: true
